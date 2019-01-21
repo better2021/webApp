@@ -1,8 +1,19 @@
 <template>
-  <div class="musicBox">
+  <div id="musicBox">
+    <div class="searchBox">
+      <input v-model="txt" type="text" placeholder="请输入您要搜索的歌曲">
+      <button @click="search"></button>
+    </div>
     <div class="musicList">
       <ul>
-        <li v-for="item in dataSorce" :key="item.songid" @click="jumpDetail(item)">{{item.title}}</li>
+        <li v-for="item in dataSorce" :key="item.songid" @click="jumpDetail(item)">
+          <div class="pic" :style="`background:url(${item.pic}) center no-repeat`"></div>
+          <div class="text">
+            <p>{{item.author}}</p>
+            <p>{{item.title}}</p>
+          </div>
+          <i class="arrow"></i>
+        </li>
       </ul>
     </div>
   </div>
@@ -12,6 +23,7 @@
 export default {
   data () {
     return {
+      txt: '',
       dataSorce: []
     }
   },
@@ -39,7 +51,16 @@ export default {
         path: '/musicDetail',
         query: { id: item.songid }
       })
+    },
+    // 搜索
+    search () {
+      const title = this.txt
+      this.getMusicList(title)
     }
   }
 }
 </script>
+
+<style lang="less" scoped>
+@import url(./index.less);
+</style>

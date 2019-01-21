@@ -4,16 +4,55 @@
       <router-link to="/">Home</router-link>
       <router-link to="/about">About</router-link>
     </div>
+    <audio :src="url" controls style="display:none"></audio>
     <router-view/>
   </div>
 </template>
+<script>
+export default {
+  data () {
+    return {
+      url: ''
+    }
+  },
+  methods: {
+    // 获取歌曲url地址
+    async getMusic () {
+      const res = await this.axios({
+        url: 'https://api.imjad.cn/cloudmusic/',
+        method: 'get',
+        params: {
+          type: 'song',
+          id: this.$route.query.id,
+          br: 128000
+        }
+      })
+      if (res.status !== 200) {
+        console.log(res.message)
+        return
+      }
+      this.url = res.data[0].url
+      console.log(this.url)
+    }
+  }
+}
+</script>
 
 <style lang="less">
 * {
   margin: 0;
   padding: 0;
 }
+body {
+  max-width: 720px;
+  min-width: 320px;
+  margin: 0 auto;
+}
 ul,
+input,
+button {
+  border: none;
+}
 li {
   list-style: none;
 }
@@ -25,12 +64,12 @@ a {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  padding-top: 50px;
+  padding-bottom: 50px;
   font-size: 14px;
 }
 #nav {
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 50px;
@@ -38,6 +77,8 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(255, 175, 118, 0.6);
+  border-radius: 3px;
   a {
     margin: 10px;
     font-size: 0.3rem;
