@@ -1,7 +1,7 @@
 <template>
   <div id="musicBox">
     <div class="searchBox">
-      <input v-model="txt" type="text" placeholder="请输入您要搜索的歌曲">
+      <input v-model="txt" type="text" placeholder="请输入您要搜索的歌曲" @keyup.enter="search">
       <button @click="search"></button>
     </div>
     <div class="musicList">
@@ -21,17 +21,17 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       txt: '',
       dataSorce: []
     }
   },
-  created () {
+  created() {
     this.getMusicList()
   },
   methods: {
-    async getMusicList (title = '喜欢') {
+    async getMusicList(title = '喜欢') {
       let res = await this.axios({
         url: 'https://api.apiopen.top/searchMusic',
         method: 'GET',
@@ -45,7 +45,7 @@ export default {
       this.dataSorce = res.result
     },
     // 跳转至音乐详情
-    jumpDetail (item) {
+    jumpDetail(item) {
       console.log(item)
       this.$router.push({
         path: '/musicDetail',
@@ -53,7 +53,7 @@ export default {
       })
     },
     // 搜索
-    search () {
+    search() {
       const title = this.txt
       this.getMusicList(title)
     }

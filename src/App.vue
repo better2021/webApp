@@ -1,40 +1,44 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Music</router-link>
+      <router-link to="/video">Video</router-link>
     </div>
-    <audio :src="url" controls style="display:none"></audio>
+    <audio v-show="isShow" :src="url" id="audio" controls preload="auto" loop="loop" autoplay></audio>
     <router-view/>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
-      url: ''
+      isShow: false
     }
   },
-  methods: {
-    // 获取歌曲url地址
-    async getMusic () {
-      const res = await this.axios({
-        url: 'https://api.imjad.cn/cloudmusic/',
-        method: 'get',
-        params: {
+  watch: {
+    $route(to, from) {
+      // console.log(to, from)
+      if (to.name === 'musicDetail') {
+        let payload = {
           type: 'song',
           id: this.$route.query.id,
           br: 128000
         }
-      })
-      if (res.status !== 200) {
-        console.log(res.message)
-        return
+        this.isShow = true
+        this.$store.dispatch('music/url', payload)
+      } else {
+        this.isShow = false
       }
-      this.url = res.data[0].url
-      console.log(this.url)
     }
-  }
+  },
+  computed: {
+    ...mapState({
+      url: state => state.music.musicUrl
+    })
+  },
+  created() {},
+  methods: {}
 }
 </script>
 
@@ -71,6 +75,7 @@ a {
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 99;
   width: 100%;
   height: 50px;
   line-height: 50px;
@@ -87,5 +92,12 @@ a {
       color: #42b983;
     }
   }
+}
+#audio {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100px;
+  margin: 0 auto;
 }
 </style>
