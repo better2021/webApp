@@ -5,8 +5,7 @@
         <input v-model="txt" type="text" placeholder="请输入您要搜索的歌曲" @keyup.enter="search">
         <button @click="search"></button>
       </div>
-      <div class="list">
-        <!-- <i>最近搜素：</i> -->
+      <div class="list" v-if="list.length!==0">
         <span v-for="(todo,index) in list" :key="index" @click="handlePlay(todo)">{{todo}}</span>
       </div>
     </div>
@@ -31,25 +30,22 @@ export default {
   data() {
     return {
       txt: '',
+      list: JSON.parse(localStorage.getItem('musicList')) || [],
       dataSorce: []
     }
   },
-  computed: {
-    list() {
-      return JSON.parse(localStorage.getItem('musicList')) || []
-    }
-  },
   created() {
-    this.getMusicList()
+    let title = this.$store.state.music.musicTitle
+    this.getMusicList(title)
   },
   methods: {
-    async getMusicList(title = '喜欢') {
+    async getMusicList(title) {
       let res = await this.axios({
         url: 'https://api.apiopen.top/searchMusic',
         method: 'GET',
         params: { name: title }
       })
-      console.log(res)
+      // console.log(res)
       if (res.status !== 200) {
         console.log(res.message)
         return
@@ -66,6 +62,7 @@ export default {
       })
     },
     handlePlay(title) {
+      this.$store.commit('music/musicTitle', title)
       this.getMusicList(title)
     },
     // 搜索
@@ -75,11 +72,12 @@ export default {
         console.log('请输入搜素关键词')
         return
       }
-      console.log(this.list)
+      // console.log(this.list)
       this.list.push(title)
       this.list = this.list.slice(-5)
       let musicList = Array.from(new Set(this.list))
       localStorage.setItem('musicList', JSON.stringify(musicList))
+      this.$store.commit('music/musicTitle', title)
       this.getMusicList(title)
     }
   }

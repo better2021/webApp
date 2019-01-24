@@ -97,6 +97,7 @@ a {
   position: absolute;
   left: 0;
   right: 0;
+  z-index: 9;
   bottom: 100px;
   margin: 0 auto;
 }

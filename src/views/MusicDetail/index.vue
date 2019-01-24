@@ -1,10 +1,11 @@
 <template>
   <div id="detail">
-    <div class="header">
+    <div class="header" @click="goBack">
       <p>
         <span>{{name}}</span>
       </p>
       <p>{{author}}</p>
+      <i class="iconBack"></i>
     </div>
     <div class="musicBg" :style="`background:url(${picUrl}) center no-repeat`"></div>
     <div class="pic goMove" :style="`background:url(${picUrl}) center no-repeat`"></div>
@@ -41,7 +42,12 @@ export default {
       this.author = res.songs[0].ar[0].name
       this.name = res.songs[0].al.name
       this.picUrl = res.songs[0].al.picUrl
-      console.log(this.author, this.name, this.picUrl)
+      // console.log(this.author, this.name, this.picUrl)
+    },
+    // 返回上一个页面
+    goBack() {
+      console.log(12)
+      this.$router.go(-1)
     }
   }
 }
@@ -50,13 +56,13 @@ export default {
 <style lang="less" scoped>
 #detail {
   position: fixed;
-  z-index: -1;
   width: 100vw;
   height: 100vh;
   .header {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 99;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,24 +79,32 @@ export default {
         font-size: 16px;
       }
     }
+    .iconBack {
+      position: absolute;
+      left: 10px;
+      z-index: 999;
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      background: url(../../assets/img/back.png) center no-repeat;
+      background-size: cover;
+    }
   }
   .musicBg {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
     width: 100vw;
     height: 100vh;
-    background-size: cover;
-    filter: blur(50px);
-    -webkit-filter: blur(50px);
+    filter: blur(20px);
+    -webkit-filter: blur(20px);
   }
   .pic {
     width: 80vw;
     height: 80vw;
     border-radius: 100%;
     margin: 2rem auto;
-    background-size: cover !important;
+    background-size: 110% !important;
     border: 10px rgba(255, 255, 255, 0.5) solid;
   }
   .goMove {

@@ -2,11 +2,15 @@ import axios from '../../libs/axios'
 
 export default {
   state: {
+    musicTitle: '有美人兮', // 歌曲的名称
     musicUrl: '' // 歌曲的url地址
   },
   mutations: {
     ['music/musicUrl'](state, payload) {
       state.musicUrl = payload
+    },
+    ['music/musicTitle'](state, payload) {
+      state.musicTitle = payload
     }
   },
   actions: {
