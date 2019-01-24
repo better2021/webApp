@@ -1,7 +1,7 @@
 // vue.config.js
 module.exports = {
   // 基本路径
-  publicPath: './',
+  publicPath: 'vueApp/',
   // 输出文件目录
   outputDir: 'dist',
   // 生产环境是否生成 sourceMap 文件

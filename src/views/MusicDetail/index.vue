@@ -83,12 +83,13 @@ export default {
     height: 100vh;
     background-size: cover;
     filter: blur(50px);
+    -webkit-filter: blur(50px);
   }
   .pic {
     width: 80vw;
     height: 80vw;
     border-radius: 100%;
-    margin: 3rem auto;
+    margin: 2rem auto;
     background-size: cover !important;
     border: 10px rgba(255, 255, 255, 0.5) solid;
   }
