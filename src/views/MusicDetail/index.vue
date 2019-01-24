@@ -13,19 +13,19 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       author: '',
       name: '',
       picUrl: ''
     }
   },
-  created () {
+  created() {
     this.getDetail()
   },
   methods: {
     // 获取音乐详情
-    async getDetail () {
+    async getDetail() {
       const res = await this.axios({
         url: 'https://api.imjad.cn/cloudmusic/',
         method: 'get',

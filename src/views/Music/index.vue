@@ -1,9 +1,16 @@
 <template>
   <div id="musicBox">
-    <div class="searchBox">
-      <input v-model="txt" type="text" placeholder="请输入您要搜索的歌曲" @keyup.enter="search">
-      <button @click="search"></button>
+    <div class="topSearch">
+      <div class="searchBox">
+        <input v-model="txt" type="text" placeholder="请输入您要搜索的歌曲" @keyup.enter="search">
+        <button @click="search"></button>
+      </div>
+      <div class="list">
+        <!-- <i>最近搜素：</i> -->
+        <span v-for="(todo,index) in list" :key="index" @click="handlePlay(todo)">{{todo}}</span>
+      </div>
     </div>
+
     <div class="musicList">
       <ul>
         <li v-for="item in dataSorce" :key="item.songid" @click="jumpDetail(item)">
@@ -27,6 +34,11 @@ export default {
       dataSorce: []
     }
   },
+  computed: {
+    list() {
+      return JSON.parse(localStorage.getItem('musicList')) || []
+    }
+  },
   created() {
     this.getMusicList()
   },
@@ -42,6 +54,7 @@ export default {
         console.log(res.message)
         return
       }
+      this.txt = ''
       this.dataSorce = res.result
     },
     // 跳转至音乐详情
@@ -52,9 +65,21 @@ export default {
         query: { id: item.songid }
       })
     },
+    handlePlay(title) {
+      this.getMusicList(title)
+    },
     // 搜索
     search() {
       const title = this.txt
+      if (title.replace(/\s+/g, '') === '') {
+        console.log('请输入搜素关键词')
+        return
+      }
+      console.log(this.list)
+      this.list.push(title)
+      this.list = this.list.slice(-5)
+      let musicList = Array.from(new Set(this.list))
+      localStorage.setItem('musicList', JSON.stringify(musicList))
       this.getMusicList(title)
     }
   }
