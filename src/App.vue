@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Music</router-link>
-      <router-link to="/video">Video</router-link>
+      <router-link to="/audio">Audio</router-link>
     </div>
     <audio v-show="isShow" :src="url" id="audio" controls preload="auto" loop="loop" autoplay></audio>
     <transition name="slide-fade">

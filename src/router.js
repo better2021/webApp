@@ -14,14 +14,19 @@ export default new Router({
       component: Music
     },
     {
-      path: '/video',
-      name: 'video',
-      component: () => import('./views/Video')
-    },
-    {
       path: '/musicDetail',
       name: 'musicDetail',
       component: () => import('./views/MusicDetail')
+    },
+    {
+      path: '/audio',
+      name: 'audio',
+      component: () => import('./views/Audio')
+    },
+    {
+      path: '/audioDetail',
+      name: 'audioDetail',
+      component: () => import('./views/AudioDetail')
     }
   ]
 })
