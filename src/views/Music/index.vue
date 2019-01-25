@@ -22,6 +22,7 @@
         </li>
       </ul>
     </div>
+    <Loading v-show="loading"></Loading>
   </div>
 </template>
 
@@ -30,7 +31,8 @@ export default {
   data() {
     return {
       txt: '',
-      list: JSON.parse(localStorage.getItem('musicList')) || [],
+      loading: false,
+      list: JSON.parse(localStorage.getItem('musicList')) || ['有美人兮', '生僻字'],
       dataSorce: []
     }
   },
@@ -40,11 +42,13 @@ export default {
   },
   methods: {
     async getMusicList(title) {
+      this.loading = true
       let res = await this.axios({
         url: 'https://api.apiopen.top/searchMusic',
         method: 'GET',
         params: { name: title }
       })
+      this.loading = false
       // console.log(res)
       if (res.status !== 200) {
         console.log(res.message)

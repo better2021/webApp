@@ -9,6 +9,7 @@
     </div>
     <div class="musicBg" :style="`background:url(${picUrl}) center no-repeat`"></div>
     <div class="pic goMove" :style="`background:url(${picUrl}) center no-repeat`"></div>
+    <Loading v-show="loading"></Loading>
   </div>
 </template>
 
@@ -18,7 +19,8 @@ export default {
     return {
       author: '',
       name: '',
-      picUrl: ''
+      picUrl: '',
+      loading: false
     }
   },
   created() {
@@ -27,6 +29,7 @@ export default {
   methods: {
     // 获取音乐详情
     async getDetail() {
+      this.loading = true
       const res = await this.axios({
         url: 'https://api.imjad.cn/cloudmusic/',
         method: 'get',
@@ -35,6 +38,7 @@ export default {
           id: this.$route.query.id
         }
       })
+      this.loading = false
       if (res.status !== 200) {
         console.log(res.message)
         return
@@ -46,7 +50,6 @@ export default {
     },
     // 返回上一个页面
     goBack() {
-      console.log(12)
       this.$router.go(-1)
     }
   }
