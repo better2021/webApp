@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <p>{{new Date()|timeFormat}}</p>
   </div>
 </template>
 
