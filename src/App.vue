@@ -11,11 +11,12 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      isShow: false
+      isShow: false,
+      url: ''
     }
   },
   watch: {
@@ -28,17 +29,31 @@ export default {
           br: 128000
         }
         this.isShow = true
-        this.$store.dispatch('music/url', payload)
+        this.$store.dispatch('music/url', payload).then(res => {
+          this.url = this.$store.state.music.musicUrl
+        })
+      } else if (to.name === 'audioDetail') {
+        const showId = this.$route.query.shows
+        let payload = {
+          type: 'skip_show',
+          id: this.$route.query.id,
+          shows: showId
+        }
+        this.isShow = true
+        this.$store.dispatch('audio/url', payload).then(res => {
+          console.log(res, '--**-')
+          this.url = this.$store.state.music.audioUrl
+        })
       } else {
         this.isShow = false
       }
     }
   },
-  computed: {
-    ...mapState({
-      url: state => state.music.musicUrl
-    })
-  },
+  // computed: {
+  //   ...mapState({
+  //     url: state => state.music.musicUrl
+  //   })
+  // },
   created() {},
   methods: {}
 }
