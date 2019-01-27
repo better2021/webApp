@@ -1,49 +1,77 @@
 <template>
-  <div id="pixiv"></div>
+  <div id="pixiv">
+    <div class="box">
+      <ul>
+        <li v-for="item in dataSource" :key="item.sid">
+          <video :src="item.video" controls></video>
+          <p>{{item.text}}</p>
+          <p>更新时间：{{item.passtime}}</p>
+        </li>
+      </ul>
+    </div>
+    <Loading v-show="loading"></Loading>
+    <Menu></Menu>
+  </div>
 </template>
 
 <script>
+import Menu from '../../components/Menu'
 export default {
+  components: {
+    Menu
+  },
   data() {
     return {
-      menu: [
-        { name: '日榜', type: 'day' },
-        { name: '周榜', type: 'week' },
-        { name: '月榜', type: 'month' },
-        { name: '新人', type: 'week_rookie' },
-        { 原创: '周榜', type: 'week_original' },
-        { name: '男性向', type: 'day_male' },
-        { name: '女性向', type: 'day_female' }
-      ]
+      loading: false,
+      dataSource: []
     }
   },
   created() {
-    this.getPic()
-    // https://api.imjad.cn/interface/img/PixivProxy.php?url=https://i.pximg.net/c/540x540_70/img-master/img/2019/01/19/00/00/06/72727026_p0_master1200.jpg
-    // https://api.imjad.cn/interface/img/PixivProxy.php?url=https://i.pximg.net/c/540x540_70/img-master/img/2019/01/19/00/01/14/72727118_p0_master1200.jpg
+    this.getJoke()
   },
   methods: {
-    async getPic() {
+    async getJoke() {
+      this.loading = true
       let res = await this.axios({
-        url: 'https://api.imjad.cn/pixiv/v2/',
+        url: 'https://api.apiopen.top/getJoke',
         methid: 'GET',
         params: {
-          type: 'rank',
-          mode: 'week',
+          type: 'video',
           page: 1,
-          offset: 10
+          count: 10
         }
       })
-      console.log(res)
+      this.loading = false
       if (res.status !== 200) {
         console.log(res.message)
         return
       }
-      console.log(res.data)
+      console.log(res.result)
+      this.dataSource = res.result
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+#pixiv {
+  .box {
+    width: 100%;
+    ul {
+      padding: 10px;
+      li {
+        margin-bottom: 10px;
+        video {
+          width: 100%;
+        }
+        p {
+          text-align: center;
+          span {
+            color: #666666;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

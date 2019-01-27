@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Music</router-link>
-      <router-link to="/audio">Audio</router-link>
-      <router-link to="/pixiv">Pixiv</router-link>
-    </div>
     <audio v-show="isShow" :src="url" id="audio" controls preload="auto" loop="loop" autoplay></audio>
     <transition name="slide-fade">
       <router-view/>
@@ -86,30 +81,8 @@ a {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  padding-bottom: 50px;
   font-size: 14px;
-}
-#nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 99;
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 175, 118, 0.6);
-  border-radius: 3px;
-  a {
-    margin: 10px;
-    font-size: 0.3rem;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  padding-bottom: 1rem;
 }
 #audio {
   position: absolute;

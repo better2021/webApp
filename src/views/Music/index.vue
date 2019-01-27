@@ -9,7 +9,6 @@
         <span v-for="(todo,index) in list" :key="index" @click="handlePlay(todo)">{{todo}}</span>
       </div>
     </div>
-
     <div class="musicList">
       <ul>
         <li v-for="item in dataSorce" :key="item.songid" @click="jumpDetail(item)">
@@ -23,11 +22,16 @@
       </ul>
     </div>
     <Loading v-show="loading"></Loading>
+    <Menu></Menu>
   </div>
 </template>
 
 <script>
+import Menu from '../../components/Menu'
 export default {
+  components: {
+    Menu
+  },
   data() {
     return {
       txt: '',

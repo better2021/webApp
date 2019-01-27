@@ -22,16 +22,18 @@
       </ul>
     </div>
     <Loading v-show="loading"></Loading>
+    <Menu></Menu>
   </div>
 </template>
 
 <script>
 import HelloWorld from '@/components/HelloWorld'
-
+import Menu from '../../components/Menu'
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    HelloWorld,
+    Menu
   },
   data() {
     return {
