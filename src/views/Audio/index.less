@@ -1,0 +1,75 @@
+#audioPlay {
+  .audioBox {
+    width: 100%;
+    padding: 10px 0;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      li {
+        position: relative;
+        width: 3.5rem;
+        height: 3.5rem;
+        margin: 5px 0;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0px 0px 5px #dddddd;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+        .text {
+          width: 100%;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          color: #ffffff;
+          padding: 3px 5px;
+          h4 {
+            width: 100%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            font-size: 14px;
+            line-height: 24px;
+            height: 24px;
+          }
+          p {
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-size: 12px;
+            line-height: 20px;
+          }
+        }
+      }
+    }
+  }
+  .timebox {
+    text-align: center;
+  }
+  .menuList {
+    width: 100%;
+    text-align: center;
+    background: url('http://www.51pptmoban.com/d/file/2014/03/29/b817c21792a828fc471254626d1a2398.jpg')
+      center no-repeat;
+    background-size: cover;
+    padding: 5px 0;
+    span {
+      display: inline-block;
+      padding: 2px 3px;
+      background: #5a89d6;
+      border-radius: 3px;
+      color: #ffffff;
+      margin: 3px 5px;
+      box-shadow: 0 0 3px #f1f1f1;
+    }
+    span.active {
+      background: #d81e06;
+    }
+  }
+}

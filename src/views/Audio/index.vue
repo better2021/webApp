@@ -2,6 +2,14 @@
   <div id="audioPlay">
     <HelloWorld msg="企鹅FM"/>
     <p class="timebox">{{time}}</p>
+    <div class="menuList">
+      <span
+        v-for="(todo,index) in list"
+        :class="{active:selected === index}"
+        :key="todo.id"
+        @click="selectMenu(todo,index)"
+      >{{todo.name}}</span>
+    </div>
     <div class="audioBox">
       <ul>
         <li v-for="(item,index) in audioList" :key="index" @click="player(item)">
@@ -13,6 +21,7 @@
         </li>
       </ul>
     </div>
+    <Loading v-show="loading"></Loading>
   </div>
 </template>
 
@@ -26,8 +35,27 @@ export default {
   },
   data() {
     return {
+      loading: false,
+      selected: 2,
       time: new Date().toLocaleTimeString(),
-      audioList: []
+      audioList: [],
+      list: [
+        { name: '全部专辑', id: 39104 },
+        { name: '广播电台', id: 39137 },
+        { name: '内涵段子', id: 106 },
+        { name: '健康养生', id: 39131 },
+        { name: '语言学习', id: 39127 },
+        { name: '互联网', id: 40071 },
+        { name: '影视精选', id: 38985 },
+        { name: '榜单', id: 101 },
+        { name: '情感治愈', id: 109 },
+        { name: '晚安心语', id: 39105 },
+        { name: '美文故事', id: 39106 },
+        { name: '恋爱宝典', id: 38983 },
+        { name: '两性夜话', id: 107 },
+        { name: '旅行人文', id: 108 },
+        { name: '糗事百科', id: 38979 }
+      ]
     }
   },
   created() {
@@ -40,17 +68,19 @@ export default {
     }, 1000)
   },
   methods: {
-    async getAudioList() {
+    async getAudioList(id = 106) {
+      this.loading = true
       const res = await this.axios({
         url: 'https://api.imjad.cn/qqfm/v1/',
         method: 'GET',
         params: {
           type: 'album', // album =>专辑列表,show =>节目列表,skip_show =>节目详情
-          id: 106, // 39137广播电台,106内涵段子,39131健康养生,39127语言学习,40071互联网,38985影视精选,101榜单,39104全部专辑
+          id, // 39137广播电台,106内涵段子,39131健康养生,39127语言学习,40071互联网,38985影视精选,101榜单,39104全部专辑
           page: 1,
           page_size: 21
         }
       })
+      this.loading = false
       if (res.status !== 200) {
         console.log(res.message)
         return
@@ -67,63 +97,17 @@ export default {
           shows: `rd${item.allShowList[0].strMid}`
         }
       })
+    },
+    // 选择菜单
+    selectMenu(todo, index) {
+      // console.log(todo.id)
+      this.selected = index
+      this.getAudioList(todo.id)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-#audioPlay {
-  .audioBox {
-    width: 100%;
-    padding: 10px 0;
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      li {
-        position: relative;
-        width: 3.5rem;
-        height: 3.5rem;
-        margin: 5px 0;
-        border-radius: 5px;
-        overflow: hidden;
-        box-shadow: 0px 0px 5px #dddddd;
-        img {
-          width: 100%;
-          height: 100%;
-        }
-        .text {
-          width: 100%;
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          color: #ffffff;
-          padding: 3px 5px;
-          h4 {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            text-align: center;
-            font-size: 14px;
-            line-height: 24px;
-          }
-          p {
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            font-size: 12px;
-            line-height: 20px;
-          }
-        }
-      }
-    }
-  }
-  .timebox {
-    text-align: center;
-  }
-}
+@import url('./index.less');
 </style>

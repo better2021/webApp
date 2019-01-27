@@ -27,6 +27,11 @@ export default new Router({
       path: '/audioDetail',
       name: 'audioDetail',
       component: () => import('./views/AudioDetail')
+    },
+    {
+      path: '/pixiv',
+      name: 'pixiv',
+      component: () => import('./views/Pixiv')
     }
   ]
 })
