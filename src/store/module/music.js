@@ -4,7 +4,11 @@ export default {
   state: {
     musicTitle: '有美人兮', // 歌曲的名称
     musicUrl: '', // 歌曲的url地址
-    audioUrl: '' // 音频的url地址
+    audioUrl: '', // 音频的url地址
+    obj: {
+      selected: 2,
+      audioId: 106
+    }
   },
   mutations: {
     ['music/musicUrl'](state, payload) {
@@ -15,6 +19,10 @@ export default {
     },
     ['audio/audioUrl'](state, payload) {
       state.audioUrl = payload
+    },
+    ['audio/status'](state, payload) {
+      state.obj.selected = payload.selected
+      state.obj.audioId = payload.audioId
     }
   },
   actions: {

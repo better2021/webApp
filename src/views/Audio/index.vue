@@ -12,8 +12,8 @@
     </div>
     <div class="audioBox">
       <ul>
-        <li v-for="(item,index) in audioList" :key="index" @click="player(item)">
-          <img :src="item.album.owner.logo">
+        <li v-for="item in audioList" :key="item.album.name" @click="player(item)">
+          <img v-lazy="item.album.owner.logo">
           <div class="text">
             <h4>{{item.album.name}}</h4>
             <p>{{item.album.desc}}</p>
@@ -29,11 +29,18 @@
 <script>
 import HelloWorld from '@/components/HelloWorld'
 import Menu from '../../components/Menu'
+import { mapState } from 'vuex'
 export default {
   name: 'home',
   components: {
     HelloWorld,
     Menu
+  },
+  computed: {
+    ...mapState({
+      selectedId: state => state.music.obj.selected,
+      id: state => state.music.obj.audioId
+    })
   },
   data() {
     return {
@@ -61,7 +68,9 @@ export default {
     }
   },
   created() {
-    this.getAudioList()
+    const id = this.id
+    this.selected = this.selectedId
+    this.getAudioList(id)
   },
   mounted() {
     setInterval(() => {
@@ -70,7 +79,7 @@ export default {
     }, 1000)
   },
   methods: {
-    async getAudioList(id = 106) {
+    async getAudioList(id) {
       this.loading = true
       const res = await this.axios({
         url: 'https://api.imjad.cn/qqfm/v1/',
@@ -105,6 +114,11 @@ export default {
       // console.log(todo.id)
       this.selected = index
       this.getAudioList(todo.id)
+      const obj = {
+        selected: this.selected,
+        audioId: todo.id
+      }
+      this.$store.commit('audio/status', obj)
     }
   }
 }

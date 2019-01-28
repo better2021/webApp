@@ -105,4 +105,13 @@ a {
   transform: translateX(50vw);
   opacity: 0.3;
 }
+
+img[lazy='loading'] {
+  width: 60% !important;
+  height: 60% !important;
+}
+img[lazy='error'] {
+  width: 60% !important;
+  height: 60% !important;
+}
 </style>

@@ -5,7 +5,11 @@ import store from './store'
 import './libs/rem' // 自适应字体布局单位
 import axios from './libs/axios'
 import Loading from './components/Loading'
+import VueLazyload from 'vue-lazyload'
+
 Vue.config.productionTip = false
+// 全局注册axios的api请求
+Vue.prototype.axios = axios
 
 Vue.component('Loading', Loading) // 全局注册Loading组件
 const upZero = param => {
@@ -23,8 +27,12 @@ Vue.filter('timeFormat', val => {
   return `${year}-${upZero(month)}-${upZero(day)} ${upZero(hour)}:${upZero(min)}`
 })
 
-// 全局注册axios的api请求
-Vue.prototype.axios = axios
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'https://i.loli.net/2019/01/28/5c4ee2a4a3968.png',
+  loading: 'https://i.loli.net/2019/01/28/5c4ee2a4a3968.png',
+  attempt: 1
+})
 
 new Vue({
   router,

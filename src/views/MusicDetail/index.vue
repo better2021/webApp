@@ -1,11 +1,11 @@
 <template>
   <div id="detail">
-    <div class="header" @click="goBack">
+    <div class="header">
       <p>
         <span>{{name}}</span>
       </p>
       <p>{{author}}</p>
-      <i class="iconBack"></i>
+      <i class="iconBack" @click="goBack"></i>
     </div>
     <div class="musicBg" :style="`background:url(${picUrl}) center no-repeat`"></div>
     <div class="pic goMove" :style="`background:url(${picUrl}) center no-repeat`"></div>
