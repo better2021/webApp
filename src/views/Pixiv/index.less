@@ -41,22 +41,52 @@
     }
   }
   .box {
+    position: relative;
     width: 100%;
-    ul {
-      padding: 10px;
-      li {
-        margin-bottom: 10px;
-        video {
-          width: 100%;
-          border-radius: 5px;
-        }
-        p {
-          text-align: center;
-          span {
-            color: #666666;
+    .scorllBox {
+      height: calc(100vh - 1rem);
+      overflow: hidden;
+      ul {
+        padding: 10px;
+        li {
+          margin-bottom: 10px;
+          video {
+            width: 100%;
+            border-radius: 5px;
+          }
+          p {
+            text-align: center;
+            span {
+              color: #666666;
+            }
           }
         }
       }
+    }
+
+    /* 下拉、上拉提示信息 */
+    .top-tip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      color: #555;
+    }
+
+    .bottom-tip {
+      width: 100%;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+      color: #d81e06;
+      background: #f2f2f2;
+      position: absolute;
+      bottom: 0;
+      left: 0;
     }
   }
 }
