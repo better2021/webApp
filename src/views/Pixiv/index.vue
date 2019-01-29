@@ -65,13 +65,15 @@ export default {
       probeType: 2,
       bounceTime: 700, // 回弹时间
       pullUpLoad: {
-        threshold: 30 // 当上拉距离超过盒子高度的10px的时候,就派发一个上拉加载的事件
+        threshold: 30 // 当上拉距离超过盒子高度的30px的时候,就派发一个上拉加载的事件
       },
       pullDownRefresh: {
-        threshold: -30 // 当下拉长度距离盒子顶部的高度超过10px的时候,就派发一个下拉刷新的事件
+        threshold: -30, // 当下拉长度距离盒子顶部的高度超过30px的时候,就派发一个下拉刷新的事件
+        stop: 30
       },
       useTransition: false // 防止iphone微信滑动卡顿
     })
+
     Scroll.on('scroll', pos => {
       // 如果下拉超过30px 就显示下拉刷新的文字
       // console.log(pos, '----')
