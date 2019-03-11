@@ -29,9 +29,14 @@ export default new Router({
       component: () => import('./views/AudioDetail')
     },
     {
-      path: '/pixiv',
-      name: 'pixiv',
-      component: () => import('./views/Pixiv')
+      path: '/video',
+      name: 'video',
+      component: () => import('./views/Video')
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: () => import('./views/Chat')
     }
   ],
   scrollBehavior(to, from, savedPosition) {

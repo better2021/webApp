@@ -2,7 +2,8 @@
   <div id="nav">
     <router-link to="/">Music</router-link>
     <router-link to="/audio">Audio</router-link>
-    <router-link to="/pixiv">Pixiv</router-link>
+    <router-link to="/video">Video</router-link>
+    <router-link to="/chat">Chat</router-link>
   </div>
 </template>
 
@@ -25,7 +26,8 @@
     flex: 1;
     text-align: center;
     font-size: 0.3rem;
-    color: #2c3e50;
+    text-shadow: 0px 0px 3px #f00;
+    color: #ffffff;
     &.router-link-exact-active {
       color: #42b983;
     }
