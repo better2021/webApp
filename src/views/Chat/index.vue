@@ -59,7 +59,7 @@ export default {
     this.socket.on('add', data => {
       let html = document.createElement('p')
       html.setAttribute('class', 'msg')
-      html.innerHTML = `系统消息：${data.username}已加入群聊`
+      html.innerHTML = `系统消息：<span style="color:#F2C047">${data.username}</span>已加入群聊`
       console.log(html)
       chatView.appendChild(html)
     })
@@ -67,6 +67,11 @@ export default {
     // 接受消息
     this.socket.on('receiveMessage', data => {
       this.showMessage(data)
+      // 设置滚动行为改为平滑的滚动
+      window.scrollTo({
+        top: chatView.scrollHeight,
+        behavior: 'smooth'
+      })
     })
 
     // 退出群聊提示
@@ -74,7 +79,7 @@ export default {
       if (name !== null) {
         let html = document.createElement('p')
         html.setAttribute('class', 'msg')
-        html.innerHTML = `warning:${name}已退出群聊`
+        html.innerHTML = `warning:<span style="color:#F2C047">${name}</span>已退出群聊`
         chatView.appendChild(html)
       }
     })
@@ -98,12 +103,19 @@ export default {
     },
     // 发送消息
     sendMessage() {
+      let chatView = document.getElementById('chat-con')
+      // console.log(chatView.scrollHeight)
       if (this.txt.trim()) {
         this.socket.emit('sendMessage', { username: this.name, message: this.txt })
         this.txt = '' // 发送完成后清空输入框
       } else {
         alert('请输入要发生的消息哦')
       }
+      // 设置滚动行为改为平滑的滚动
+      window.scrollTo({
+        top: chatView.scrollHeight,
+        behavior: 'smooth'
+      })
     },
     // 显示信息
     showMessage(data) {
@@ -111,9 +123,9 @@ export default {
       let chatView = document.getElementById('chat-con')
       if (data.username === this.name) {
         html.innerHTML =
-          '<div class="chat-item item-right"><span class="img"></span><span class="message">' +
+          '<div class="chat-item item-right"></span><span class="message">' +
           data.message +
-          '</span></div>'
+          '</span><span class="img"></div>'
       } else {
         html.innerHTML =
           '<div class="chat-item item-left rela"><span class="abs uname">' +
@@ -159,8 +171,9 @@ export default {
       justify-content: flex-start;
     }
     .chat-item {
-      margin: 5px 0;
+      margin: 10px 0;
       padding: 0 10px;
+      position: relative;
       .message {
         padding: 0px 10px;
         line-height: 40px;
@@ -169,6 +182,19 @@ export default {
         font-size: 14px;
       }
       .img {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        border-radius: 3px;
+        background: url(../../assets/img/user.jpg) no-repeat center;
+        background-size: 100% 100%;
+        background-position: 0 -3px;
+      }
+      .uname {
+        position: absolute;
+        top: -15px;
+        font-size: 10px;
+        color: #666666;
       }
     }
   }
