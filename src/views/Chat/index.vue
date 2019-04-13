@@ -6,6 +6,7 @@
         <input type="text" class="text" v-model="name" placeholder="请输入您的昵称">
         <br>
         <input type="button" class="btn" value="登录" @click="login">
+        <p>当前的网络类型为：<span style="color:#f00">{{netWork}}</span></p>
       </div>
     </div>
 
@@ -37,10 +38,16 @@ export default {
       show: true,
       socket: io('ws://localhost:8080'), // 建立socket连接，使用websocket协议，端口号是服务器监听的端口号
       name: '', // 定义用户名
-      txt: '' // 发送的信息
+      txt: '', // 发送的信息
+      netWork: ''
     }
   },
   mounted() {
+    // 检测设备当前的网络类型
+    let connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
+    console.log(connection)
+    this.netWork = connection.effectiveType
+
     let chatView = document.getElementById('chat-con')
     // 登录成功
     this.socket.on('loginSuccess', data => {
