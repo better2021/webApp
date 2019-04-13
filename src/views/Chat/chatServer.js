@@ -38,6 +38,7 @@ io.on('connection', function(socket) {
 
   // 监听发送消息
   socket.on('sendMessage', function(data) {
+    console.log(data, '666')
     io.sockets.emit('receiveMessage', data)
   })
 

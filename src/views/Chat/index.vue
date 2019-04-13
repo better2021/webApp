@@ -26,6 +26,7 @@
 <script>
 import io from 'socket.io-client' // 引入客户端的socket
 import Menu from '../../components/Menu'
+import notifyMe from '@/libs/notice'
 export default {
   components: {
     Menu
@@ -66,7 +67,13 @@ export default {
 
     // 接受消息
     this.socket.on('receiveMessage', data => {
+      console.log(data, '---')
       this.showMessage(data)
+      notifyMe(data.username, {
+        body: data.message,
+        icon: 'https://i.loli.net/2019/04/13/5cb154d3bcd8c.jpg'
+      })
+
       // 设置滚动行为改为平滑的滚动
       window.scrollTo({
         top: chatView.scrollHeight,
@@ -81,6 +88,11 @@ export default {
         html.setAttribute('class', 'msg')
         html.innerHTML = `warning:<span style="color:#F2C047">${name}</span>已退出群聊`
         chatView.appendChild(html)
+
+        notifyMe('提示信息', {
+          body: `系统提醒：${name}已退出群聊`,
+          icon: 'https://i.loli.net/2019/04/13/5cb1600e5ba58.jpg'
+        })
       }
     })
 
