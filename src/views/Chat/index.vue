@@ -45,7 +45,7 @@ export default {
   mounted() {
     // 检测设备当前的网络类型
     let connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
-    console.log(connection)
+    console.log(connection, '666')
     this.netWork = connection.effectiveType
 
     let chatView = document.getElementById('chat-con')
