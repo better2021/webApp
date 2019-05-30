@@ -7,6 +7,10 @@ import axios from './libs/axios'
 import Loading from './components/Loading'
 import VueLazyload from 'vue-lazyload'
 
+import Vant from 'vant'
+import 'vant/lib/index.css'
+Vue.use(Vant)
+
 Vue.config.productionTip = false
 // 全局注册axios的api请求
 Vue.prototype.axios = axios

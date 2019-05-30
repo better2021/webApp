@@ -37,6 +37,11 @@ export default new Router({
       path: '/chat',
       name: 'chat',
       component: () => import('./views/Chat')
+    },
+    {
+      path: '/userInfo',
+      name: 'userInfo',
+      component: () => import('./views/userInfo')
     }
   ],
   scrollBehavior(to, from, savedPosition) {

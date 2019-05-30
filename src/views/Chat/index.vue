@@ -6,7 +6,10 @@
         <input type="text" class="text" v-model="name" placeholder="请输入您的昵称">
         <br>
         <input type="button" class="btn" value="登录" @click="login">
-        <p>当前的网络类型为：<span style="color:#f00">{{netWork}}</span></p>
+        <p>
+          当前的网络类型为：
+          <span style="color:#f00">{{netWork}}</span>
+        </p>
       </div>
     </div>
 
@@ -28,6 +31,7 @@
 import io from 'socket.io-client' // 引入客户端的socket
 import Menu from '../../components/Menu'
 import notifyMe from '@/libs/notice'
+
 export default {
   components: {
     Menu
