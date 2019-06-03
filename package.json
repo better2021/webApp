@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "node": "node chatServer.js",
+    "start": "concurrently \"npm run node\" \"npm run serve\"",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -25,6 +27,7 @@
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-import": "^1.11.2",
+    "concurrently": "^4.1.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",

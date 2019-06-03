@@ -47,11 +47,15 @@ export default {
   methods: {
     async getMusicList(title) {
       this.loading = true
+      setTimeout(() => {
+        this.loading = false
+      }, 3000)
       let res = await this.axios({
         url: 'https://api.apiopen.top/searchMusic',
         method: 'GET',
         params: { name: title }
       })
+
       this.loading = false
       // console.log(res)
       if (res.status !== 200) {
