@@ -61,9 +61,9 @@ export default {
   padding: 0;
 }
 body {
-  max-width: 720px;
+  max-width: 750px;
   min-width: 320px;
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
 ul,
 input,
