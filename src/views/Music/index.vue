@@ -36,7 +36,7 @@ export default {
     return {
       txt: '',
       loading: false,
-      list: JSON.parse(localStorage.getItem('musicList')) || ['有美人兮', '生僻字'],
+      list: JSON.parse(localStorage.getItem('musicList')) || ['心如止水', '慢慢喜欢你', '东西'],
       dataSorce: []
     }
   },
